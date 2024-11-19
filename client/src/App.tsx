@@ -4,9 +4,11 @@ import Home from "./pages/Home"
 import Compiler from "./pages/Compiler"
 import NotFound from "./pages/NotFound"
 import { ThemeProvider } from "@/components/theme-provider"
+import { Toaster } from "sonner"
 function App() {
   return (
     <div>
+      <Toaster position="bottom-right" theme="dark"/>
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <Header />
         <Routes>
