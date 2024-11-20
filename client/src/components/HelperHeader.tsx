@@ -1,4 +1,4 @@
-import { Code, Container, Copy, Download, Loader, Share2 } from "lucide-react"
+import {  Container, Copy, Download, Loader, Share2 } from "lucide-react"
 import { Button } from "./ui/button"
 import {
   Select,
@@ -114,5 +114,6 @@ const HelperHeader = () => {
     </div>
   )
 }
+
 
 export default HelperHeader
