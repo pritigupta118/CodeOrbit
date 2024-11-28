@@ -13,6 +13,9 @@ const Header = () => {
         <li>
           <Link to='/compiler'><Button variant='outline'>Compiler</Button></Link>
         </li>
+        <li>
+          <Link to='/signup'><Button variant='blue'>Sign up</Button></Link>
+        </li>
       </ul>
     </nav>
   )

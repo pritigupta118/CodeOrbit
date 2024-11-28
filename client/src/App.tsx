@@ -5,6 +5,8 @@ import Compiler from "./pages/Compiler"
 import NotFound from "./pages/NotFound"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "sonner"
+import Login from "./pages/Login"
+import Signup from "./pages/Signup"
 function App() {
   return (
     <div>
@@ -13,8 +15,9 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/compiler" element={<Compiler />} />
-          <Route path="/compiler/:urlId" element={<Compiler />} />
+          <Route path="/signup" element={<Signup/>} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/compiler/:urlId?" element={<Compiler />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </ThemeProvider>

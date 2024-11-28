@@ -5,7 +5,7 @@ import { User } from "../models/userModel";
 
 
 
-export const signup = async (req: Request, res: Response) => {
+export const signup = async (req: Request, res: Response): Promise<any> => {
   const { username, email, password } = req.body;
   const usernameRegex = /^[a-zA-Z0-9]+$/;
   try {
@@ -55,7 +55,7 @@ export const signup = async (req: Request, res: Response) => {
   }
 };
 
-export const login = async (req: Request, res: Response) => {
+export const login = async (req: Request, res: Response) : Promise<any> => {
   const { userId, password }: { userId: string; password: string } = req.body;
   try {
     let existingUser = undefined;
@@ -108,7 +108,7 @@ export const login = async (req: Request, res: Response) => {
   }
 };
 
-export const logout = async (req: Request, res: Response) => {
+export const logout = async (req: Request, res: Response): Promise<any> => {
   try {
     res.clearCookie("token");
     return res.status(200).send({ message: "logged out successfully!" });
