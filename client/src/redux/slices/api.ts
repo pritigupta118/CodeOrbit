@@ -26,7 +26,15 @@ export const api = createApi({
       })
     }),
 
-    loginuser: builder.mutation<userInfoType, userCredentialType>({
+    signupUser: builder.mutation<userInfoType,signupCredentialType>({
+      query: (body) => ({
+         url: "/user/signup",
+         method: "POST",
+         body: body
+      })
+    }),
+
+    loginuser: builder.mutation<userInfoType, loginCredentialType>({
       query: (body) => ({
           url: "/user/login",
           method: "POST",
@@ -40,8 +48,13 @@ export const api = createApi({
         url: "/user/logout",
         method: "POST"
       })
-    })
+    }),
+
+    getUserDetails: builder.query<userInfoType, void>({
+      query: () => ({url: "/user/user-details", cache: "no-store"})
+    }),
+
   })
 })
 
-export const { useSaveCodeMutation, useLoadCodeMutation, useLoginuserMutation, useLogoutUserMutation } = api
+export const { useSaveCodeMutation, useLoadCodeMutation, useLoginuserMutation, useLogoutUserMutation, useGetUserDetailsQuery, useSignupUserMutation } = api

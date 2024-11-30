@@ -12,7 +12,11 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { BackgroundGradient } from "@/components/ui/background-gradient"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { useSignupUserMutation } from "@/redux/slices/api"
+import { useDispatch } from "react-redux"
+import { updateCurrentUser, updateIsLoggedIn } from "@/redux/slices/appSlice"
+import { LoaderCircle } from "lucide-react"
  
 const formSchema = z.object({
   username: z.string(),
@@ -21,6 +25,10 @@ const formSchema = z.object({
 })
 
 const Signup = () => {
+  const [signupUser, {isLoading}] = useSignupUserMutation()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -30,8 +38,11 @@ const Signup = () => {
     },
   })
 
-  function handleSignup(values: z.infer<typeof formSchema>) {
-    console.log(values)
+  async function handleSignup(values: z.infer<typeof formSchema>) {
+    const response = await signupUser(values).unwrap()
+    dispatch(updateCurrentUser(response))
+    dispatch(updateIsLoggedIn(true))
+    navigate("/")
   }
 
   return (
@@ -49,7 +60,7 @@ const Signup = () => {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input placeholder="username" {...field} />
+                <Input disabled={isLoading} placeholder="username" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -67,7 +78,7 @@ const Signup = () => {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input type="email" placeholder="email" {...field} />
+                <Input disabled={isLoading} type="email" placeholder="email" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -84,13 +95,13 @@ const Signup = () => {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input type="password" placeholder="password" {...field} />
+                <Input disabled={isLoading} type="password" placeholder="password" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button className="w-full" type="submit">signup</Button>
+        <Button disabled={isLoading} className="w-full" type="submit">{isLoading ? <LoaderCircle className="animate-spin"/> : "signup"}</Button>
       </form>
     </Form>
    <div className="text-xs text-center text-neutral-400">Already Have an Account? <span><Link to='/login' className="text-blue-600">Login</Link></span></div>
