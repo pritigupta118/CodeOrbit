@@ -11,22 +11,19 @@ export interface compilerStateType {
 
 const initialState: compilerStateType = {
   fullCode: {
-    html: `<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>To-Do App</title>
-  <link rel="stylesheet" href="style.css"> <!-- Link to external CSS -->
-</head>
-<body>
-  <h1>To-Do List</h1>
-  <input type="text" id="todoInput" placeholder="Enter a new task">
-  <button id="addButton">Add Task</button>
-  <ul id="todoList"></ul>
-  <script src="script.js"></script> <!-- Link to external JS -->
-</body>
-</html>
-`,
+    html: `
+    <html lang="en">
+      <body>
+        <div class="container">
+            <h1>To-Do List</h1>
+            <input type="text" id="todoInput" placeholder="Enter your task">
+            <button id="addButton">Add Task</button>
+            <ul id="todoList"></ul>
+        </div>
+      <script src="script.js"></script>
+      </body>
+    </html>
+        `,
     css: `/* CSS for styling */
 body {
   font-family: Arial, sans-serif;

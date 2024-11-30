@@ -4,12 +4,14 @@ import {config} from "dotenv"
 import { dbConnect } from "./lib/dbConnect";
 import { compilerRouter } from "./routes/compilerRoutes";
 import { userRouter } from "./routes/userRoutes";
+import cookieParser from "cookie-parser"
 
 const app = express()
 config()
 
 app.use(express.json())
-app.use(cors())
+app.use(cookieParser())
+app.use(cors({credentials: true, origin: "http://localhost:5173"}))
 
 dbConnect()
 

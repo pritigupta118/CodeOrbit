@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken"
 import { User } from "../models/userModel";
+import { AuthRequest } from "../middlewares/varifyToken";
 
 
 
@@ -117,20 +118,20 @@ export const logout = async (req: Request, res: Response): Promise<any> => {
   }
 };
 
-// export const userDetails = async (req: AuthRequest, res: Response) => {
-//   const userId = req._id;
-//   try {
-//     const user = await User.findById(userId);
-//     if (!user) {
-//       return res.status(404).send({ message: "Cannot find the user!" });
-//     }
-//     return res.status(200).send({
-//       username: user.username,
-//       picture: user.picture,
-//       email: user.email,
-//       savedCodes: user.savedCodes,
-//     });
-//   } catch (error) {
-//     return res.status(500).send({ message: "Cannot fetch user details" });
-//   }
-// };
+export const userDetails = async (req: AuthRequest, res: Response): Promise<any> => {
+  const userId = req._id;
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).send({ message: "Cannot find the user!" });
+    }
+    return res.status(200).send({
+      username: user.username,
+      picture: user.picture,
+      email: user.email,
+      savedCodes: user.savedCodes,
+    });
+  } catch (error) {
+    return res.status(500).send({ message: "Cannot fetch user details" });
+  }
+};

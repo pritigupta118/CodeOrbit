@@ -1,4 +1,4 @@
-import {  Container, Copy, Download, Loader, Share2 } from "lucide-react"
+import {  Container, Copy, Loader, Save} from "lucide-react"
 import { Button } from "./ui/button"
 import {
   Select,
@@ -12,7 +12,6 @@ import { useDispatch, useSelector } from "react-redux"
 import { compilerStateType, updateCurrentLanguage } from "@/redux/slices/compilerSlice"
 import { RootState } from "@/redux/store"
 import handleError from "@/utils/handleError"
-import axios from "axios"
 import { useNavigate, useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import {
@@ -24,15 +23,16 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { toast } from "sonner"
+import { useSaveCodeMutation } from "@/redux/slices/api"
 
 
 
 const HelperHeader = () => {
-  const [saveLoading, setSaveLoading] = useState<boolean>(false)
   const [shareBtn, setShareBtn] = useState<boolean>(false)
   const { urlId } = useParams()
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const [saveCode, {isLoading}] = useSaveCodeMutation()
   const currentLanguage = useSelector((store: RootState) => store.compilerSlice.currentLanguage)
   const fullCode = useSelector((store: RootState) => store.compilerSlice.fullCode)
 
@@ -46,18 +46,14 @@ const HelperHeader = () => {
   }, [urlId])
 
   const handleSave = async () => {
-    setSaveLoading(true)
+ 
     try {
-      const response = await axios.post("http://localhost:4000/compiler/save", {
-        fullCode: fullCode
-      })
-      navigate(`/compiler/${response.data.url}`, { replace: true })
+      const response = await saveCode(fullCode).unwrap()
+      navigate(`/compiler/${response.url}`, { replace: true })
     } catch (error) {
       handleError(error)
     }
-    finally {
-      setSaveLoading(false)
-    }
+
   }
 
   return (
@@ -65,14 +61,17 @@ const HelperHeader = () => {
       <div className="btn_container flex justify-between items-center gap-1">
         <Button
           variant="success"
+          size="icon"
           onClick={handleSave}
-          className="flex items-center justify-center gap-1">
-          {saveLoading ? <Loader /> : <Download />}
+          className="flex items-center justify-center gap-1"
+          disabled={isLoading}
+          >
+          {isLoading? <Loader /> : <Save />}
         </Button>
 
 
         {shareBtn && <Dialog>
-          <DialogTrigger asChild><Button variant="default"><Share2 /></Button></DialogTrigger>
+          <DialogTrigger asChild><Button size = "icon" variant="default"><Copy /></Button></DialogTrigger>
           <DialogContent>
             <DialogHeader>
               <DialogTitle className="flex gap-2 justify-center items-center"><Container/>Share Your Code!</DialogTitle>
