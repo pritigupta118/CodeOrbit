@@ -1,4 +1,4 @@
-import {  Container, Copy, Loader, Save} from "lucide-react"
+import {  Container, Copy, Download, Loader, Save} from "lucide-react"
 import { Button } from "./ui/button"
 import {
   Select,
@@ -56,6 +56,54 @@ const HelperHeader = () => {
 
   }
 
+const handleDownload = () => {
+  if (
+    fullCode.html === "" &&
+    fullCode.css === "" &&
+    fullCode.javascript === ""
+  ) {
+    toast("Error: Code is Empty");
+  } else {
+    const htmlCode = new Blob([fullCode.html], { type: "text/html" });
+    const cssCode = new Blob([fullCode.css], { type: "text/css" });
+    const javascriptCode = new Blob([fullCode.javascript], {
+      type: "text/javascript",
+    });
+
+    const htmlLink = document.createElement("a");
+    const cssLink = document.createElement("a");
+    const javascriptLink = document.createElement("a");
+
+    htmlLink.href = URL.createObjectURL(htmlCode);
+    htmlLink.download = "index.html";
+    document.body.appendChild(htmlLink);
+
+    cssLink.href = URL.createObjectURL(cssCode);
+    cssLink.download = "style.css";
+    document.body.appendChild(cssLink);
+
+    javascriptLink.href = URL.createObjectURL(javascriptCode);
+    javascriptLink.download = "script.js";
+    document.body.appendChild(javascriptLink);
+
+    if (fullCode.html !== "") {
+      htmlLink.click();
+    }
+    if (fullCode.css !== "") {
+      cssLink.click();
+    }
+    if (fullCode.javascript !== "") {
+      javascriptLink.click();
+    }
+
+    document.body.removeChild(htmlLink);
+    document.body.removeChild(cssLink);
+    document.body.removeChild(javascriptLink);
+
+    toast("Code Downloaded Successfully!");
+  }
+}
+
   return (
     <div className='h-[50px] flex justify-between items-center bg-background/95 p-2'>
       <div className="btn_container flex justify-between items-center gap-1">
@@ -67,6 +115,15 @@ const HelperHeader = () => {
           disabled={isLoading}
           >
           {isLoading? <Loader /> : <Save />}
+        </Button>
+
+        <Button
+          variant="blue"
+          size="icon"
+          onClick={handleDownload}
+          className="flex items-center justify-center gap-1"
+          >
+          <Download />
         </Button>
 
 
