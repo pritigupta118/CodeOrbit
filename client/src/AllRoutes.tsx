@@ -3,11 +3,13 @@ import { Route, Routes } from "react-router-dom"
 import Loading from "./components/loader/Loading"
 
 
+
  const Home = lazy(() => import("./pages/Home"))
  const Signup = lazy(() => import("./pages/Signup"))
  const Login = lazy(() => import("./pages/Login"))
  const NotFound = lazy(() => import("./pages/NotFound"))
  const Compiler = lazy(() => import("./pages/Compiler"))
+ const MyCodes = lazy(()=> import ("./pages/MyCodes"))
 
 
 const AllRoutes = () => {
@@ -20,6 +22,7 @@ const AllRoutes = () => {
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+        <Route path="//my-codes" element={<MyCodes/>} />
         <Route path="/compiler/:urlId?" element={<Compiler />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

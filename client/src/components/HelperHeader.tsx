@@ -48,6 +48,12 @@ const HelperHeader = () => {
   const handleSave = async () => {
  
     try {
+      // if (isLoggedIn) {
+      //   const response = await saveCode(fullCode).unwrap()
+      // navigate(`/compiler/${response.url}`, { replace: true })
+      // } else {
+      //   toast("Please log in to save your code.");
+      // }
       const response = await saveCode(fullCode).unwrap()
       navigate(`/compiler/${response.url}`, { replace: true })
     } catch (error) {

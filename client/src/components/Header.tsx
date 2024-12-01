@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom"
 import { Button } from "./ui/button"
-import { Container, LogIn, LogOut } from "lucide-react"
+import { Code, Container, LogIn, LogOut } from "lucide-react"
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "@/redux/store"
 import { useLogoutUserMutation } from "@/redux/slices/api"
 import handleError from "@/utils/handleError"
 import { updateCurrentUser, updateIsLoggedIn } from "@/redux/slices/appSlice"
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuTrigger } from "./ui/dropdown-menu"
 
 
 const Header = () => {
@@ -36,16 +37,33 @@ const Header = () => {
         </li>
         {isLoggedIn ? (
           <>
-            <li>
-              <Button size="icon" variant='destructive' onClick={handleLogout}><LogOut /></Button>
-            </li>
-            <li>
-              <Avatar>
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback className="capitalize bg-yellow-500 text-slate-900">{currentUser.username?.slice(0,2)}</AvatarFallback>
-              </Avatar>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Avatar>
+                  <AvatarImage src="https://github.com/shadcn.png" />
+                  <AvatarFallback className="capitalize bg-yellow-500 text-slate-900">{currentUser.username?.slice(0, 2)}</AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
 
-            </li>
+              <DropdownMenuContent className="w-56">
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuGroup>
+                  <Link to="/my-codes">
+                  <DropdownMenuItem>
+                    <Code />
+                    <span>My Codes</span>
+                    <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+                  </DropdownMenuItem>
+                  </Link>
+                  <DropdownMenuItem onClick={handleLogout}>
+                    <LogOut />
+                    <span>Log out</span>
+                    <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </>
         ) : (
           <li>

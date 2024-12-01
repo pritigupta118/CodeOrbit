@@ -13,7 +13,7 @@ export const verifyToken = async (
   const token = req.cookies.token;
 
   if (!token) {
-    return res.status(401).send({ message: "You are unauthorized." });
+    return res.status(401).send({ message: "Please log in." });
   }
   jwt.verify(
     token,
