@@ -1,5 +1,5 @@
 import { useGetMyCodesQuery } from "@/redux/slices/api"
-import CodeItem from "./CodeItem"
+import CodeItem from "../components/CodeItem"
 
 const MyCodes = () => {
   const { data: myCodes } = useGetMyCodesQuery()
@@ -9,7 +9,7 @@ const MyCodes = () => {
   return myCodes?.length !== 0 ? (
     <div className="p-3 grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-3">
       {myCodes?.map((item) => {
-        return <CodeItem  data={item} />;
+        return <CodeItem key={item._id}  data={item} />;
       })}
     </div>
   ) : (
