@@ -17,3 +17,7 @@ interface signupCredentialType{
   email: string,
   password: string
 }
+
+interface codeType{
+  fullCode:compilerStateType["fullCode"], title: string, _id: string
+}

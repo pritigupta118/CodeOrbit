@@ -25,7 +25,6 @@ export const saveCode = async (req: AuthRequest, res: Response): Promise<any> =>
       ownerName: user?.username,
       ownerInfo: user?._id
     })
-    console.log(newCode);
     user.savedCodes.push(newCode._id)
     await user.save()
 
@@ -42,5 +41,21 @@ export const loadCode = async (req: Request, res: Response): Promise<any> => {
     return res.status(200).send({ fullCode: existingCode?.fullCode })
   } catch (error) {
     return res.status(500).json({ message: "Error while loading code" })
+  }
+}
+
+export const getMyCodes = async (req:AuthRequest, res: Response): Promise<any> => {
+  const userId = req._id
+  try {
+    const user = await User.findById(userId).populate({
+      path: "savedCodes",
+      options: { sort: { createdAt: -1 } },
+    })
+    if (!user) {
+      return res.status(404).send({message: "User not found!"})
+    }
+    return res.status(200).send(user.savedCodes)
+  } catch (error) {
+    return res.status(500).send({ message: "Error while loading codes!" })
   }
 }

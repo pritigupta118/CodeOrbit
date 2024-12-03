@@ -1,4 +1,4 @@
-import {  Container, Copy, Download, Loader, Save} from "lucide-react"
+import {  Code, Container, Copy, Download, Save} from "lucide-react"
 import { Button } from "./ui/button"
 import {
   Select,
@@ -24,15 +24,18 @@ import {
 } from "@/components/ui/dialog"
 import { toast } from "sonner"
 import { useSaveCodeMutation } from "@/redux/slices/api"
+import { Input } from "./ui/input"
+
 
 
 
 const HelperHeader = () => {
+  const [postTitle, setPostTitle] = useState<string>("My Code");
   const [shareBtn, setShareBtn] = useState<boolean>(false)
   const { urlId } = useParams()
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const [saveCode, {isLoading}] = useSaveCodeMutation()
+  const [saveCode] = useSaveCodeMutation()
   const currentLanguage = useSelector((store: RootState) => store.compilerSlice.currentLanguage)
   const fullCode = useSelector((store: RootState) => store.compilerSlice.fullCode)
 
@@ -45,16 +48,10 @@ const HelperHeader = () => {
     }
   }, [urlId])
 
-  const handleSave = async () => {
- 
+  const handleSaveCode = async () => {
+   const body = {fullCode:fullCode, title:postTitle}
     try {
-      // if (isLoggedIn) {
-      //   const response = await saveCode(fullCode).unwrap()
-      // navigate(`/compiler/${response.url}`, { replace: true })
-      // } else {
-      //   toast("Please log in to save your code.");
-      // }
-      const response = await saveCode(fullCode).unwrap()
+      const response = await saveCode(body).unwrap()
       navigate(`/compiler/${response.url}`, { replace: true })
     } catch (error) {
       handleError(error)
@@ -113,15 +110,36 @@ const handleDownload = () => {
   return (
     <div className='h-[50px] flex justify-between items-center bg-background/95 p-2'>
       <div className="btn_container flex justify-between items-center gap-1">
-        <Button
-          variant="success"
-          size="icon"
-          onClick={handleSave}
-          className="flex items-center justify-center gap-1"
-          disabled={isLoading}
-          >
-          {isLoading? <Loader /> : <Save />}
-        </Button>
+      <Dialog>
+          <DialogTrigger asChild>
+            <Button variant="success" size="icon">
+              <Save size={16} />
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle className="flex gap-1 justify-center items-center">
+                <Code />
+                Save your Code!
+              </DialogTitle>
+              <div className="__url flex justify-center items-center gap-1">
+                <Input
+                  className="bg-slate-700 focus-visible:ring-0"
+                  placeholder="Type your Post title"
+                  value={postTitle}
+                  onChange={(e) => setPostTitle(e.target.value)}
+                />
+                <Button
+                  variant="success"
+                  className="h-full"
+                  onClick={handleSaveCode}
+                >
+                  Save
+                </Button>
+              </div>
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
 
         <Button
           variant="blue"
