@@ -4,13 +4,13 @@ import { Toaster } from "sonner"
 import { useGetUserDetailsQuery } from "./redux/slices/api"
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
-import { updateCurrentUser, updateIsLoggedIn } from "./redux/slices/appSlice"
+import { updateCurrentUser, updateIsLoggedIn, updateWindowWidth } from "./redux/slices/appSlice"
 import AllRoutes from "./AllRoutes"
 function App() {
-  const {data, error} = useGetUserDetailsQuery()
+  const { data, error } = useGetUserDetailsQuery()
   const dispatch = useDispatch()
 
-  useEffect(()=>{
+  useEffect(() => {
     if (data) {
       dispatch(updateCurrentUser(data))
       dispatch(updateIsLoggedIn(true))
@@ -19,14 +19,25 @@ function App() {
       dispatch(updateCurrentUser({}))
       dispatch(updateIsLoggedIn(false))
     }
-  },[data, error])
+  }, [data, error])
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      dispatch(updateWindowWidth(window.innerWidth));
+    })
+
+    return () => {
+      window.removeEventListener("resize", () => {
+        dispatch(updateWindowWidth(window.innerWidth));
+      })
+    }
+  }, [window.innerWidth])
 
   return (
     <div>
-      <Toaster position="bottom-right" theme="dark"/>
+      <Toaster position="bottom-right" theme="dark" />
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <Header />
-        <AllRoutes/>
+        <AllRoutes />
       </ThemeProvider>
     </div>
   )

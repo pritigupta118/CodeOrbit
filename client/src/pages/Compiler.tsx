@@ -5,9 +5,10 @@ import RenderCode from "@/components/RenderCode"
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable"
 import { useLoadCodeMutation } from "@/redux/slices/api"
 import { updateFullCode } from "@/redux/slices/compilerSlice"
+import { RootState } from "@/redux/store"
 import handleError from "@/utils/handleError"
 import { useEffect } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 
 
@@ -15,6 +16,7 @@ const Compiler = () => {
   const { urlId } = useParams()
   const [loadExistingCode, {isLoading}] = useLoadCodeMutation()
   const dispatch = useDispatch()
+  const windowWidth = useSelector((store: RootState)=> store.appSlice.windowWidth)
 
   const loadCode = async () => {
     try {
@@ -44,10 +46,10 @@ const Compiler = () => {
 
   return (
     <ResizablePanelGroup
-      direction="horizontal"
-      className="md:min-w-[450px]"
+    direction={windowWidth > 640 ? "horizontal" : "vertical"}
+       className="w-full !h-[calc(100vh-60px)]"
     >
-      <ResizablePanel defaultSize={50} className="min-w-[350px] h-[calc(100dvh-60px)]">
+      <ResizablePanel defaultSize={50} className="!h-[calc(100vh-60px)]">
         <HelperHeader />
         <CodeEditor />
       </ResizablePanel>
