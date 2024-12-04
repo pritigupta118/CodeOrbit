@@ -3,8 +3,6 @@ import CodeItem from "../components/CodeItem"
 
 const MyCodes = () => {
   const { data: myCodes } = useGetMyCodesQuery()
-  // console.log(data);
-
 
   return myCodes?.length !== 0 ? (
     <div className="p-3 grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-3">

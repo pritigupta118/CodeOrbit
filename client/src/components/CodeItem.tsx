@@ -29,7 +29,7 @@ const CodeItem = ({data}: {data: codeType}) => {
                 Delete
               </Button>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="p-3">
               <DialogHeader>
                 <DialogTitle className="flex gap-1 justify-center items-center">
                   <Trash2 />

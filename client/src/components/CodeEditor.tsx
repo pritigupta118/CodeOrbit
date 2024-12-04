@@ -16,7 +16,13 @@ function CodeEditor() {
     dispatch(updateCodeValue(val))
   }, []);
  
-  return <CodeMirror value={fullCode[currentLanguage]} height="calc(100vh - 60px - 50px)" extensions={[loadLanguage(currentLanguage)!]} onChange={onChange} theme={draculaInit({
+  return <CodeMirror 
+  value={fullCode[currentLanguage]} 
+  height="calc(100vh - 60px - 50px)" 
+  className='code-editor [&>.cm-editor]:text-[10px] [&>.cm-editor]:md:text-[13px]'
+  extensions={[loadLanguage(currentLanguage)!]} 
+  onChange={onChange} 
+  theme={draculaInit({
     settings: {
       caret: '#c6c6c6',
       fontFamily: 'monospace',
