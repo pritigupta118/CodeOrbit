@@ -19,5 +19,5 @@ interface signupCredentialType{
 }
 
 interface codeType{
-  fullCode:compilerStateType["fullCode"], title: string, _id: string
+  fullCode:compilerStateType["fullCode"], title: string, _id?: string
 }

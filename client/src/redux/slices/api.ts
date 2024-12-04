@@ -10,11 +10,11 @@ export const api = createApi({
   tagTypes: ["my-codes"],
   endpoints: (builder) => ({
     saveCode: builder.mutation<{ url: string, message: string }, codeType>({
-      query: (body) => {
+      query: (fullCode) => {
         return {
           url: "/compiler/save",
           method: "POST",
-          body: body
+          body: fullCode
         }
       },
       invalidatesTags: ["my-codes"], 
