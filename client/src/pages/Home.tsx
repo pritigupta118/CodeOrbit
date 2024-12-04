@@ -74,10 +74,9 @@ function GridBackgroundDemo() {
 
   return (
     <div className="h-[41.5rem] w-full dark:bg-black bg-white  dark:bg-grid-white/[0.2] bg-grid-black/[0.2] relative flex flex-col items-center justify-center gap-4">
-      {/* Radial gradient for the container to give a faded look */}
       <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
       <div className="__intro flex flex-col justify-center items-center">
-        <p className="text-neutral-600 dark:text-neutral-200 text-xs sm:text-base  ">
+        <p className="text-neutral-600 dark:text-neutral-200 text-xs sm:text-base p-4 text-center">
           The ultimate online coding playground to craft, test, and share your projects in real-time!
         </p>
         <TypewriterEffectSmooth words={words} />
@@ -90,7 +89,7 @@ function GridBackgroundDemo() {
           Let's Get Started
         </Button>
       </Link>
-      <div className="_tooltip flex gap-6 mt-6">
+      <div className="mt-12 flex flex-col sm:flex-row items-center sm:items-start gap-5">
         <div className="flex"><AnimatedTooltip items={people} /></div>
      
         <div className="flex flex-col gap-2 justify-center items-center sm:items-start">

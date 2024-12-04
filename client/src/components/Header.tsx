@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import { Button } from "./ui/button"
-import { Code, Container, LogIn, LogOut } from "lucide-react"
+import { Code, Computer, Container, LogIn, LogOut } from "lucide-react"
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "@/redux/store"
 import { useLogoutUserMutation } from "@/redux/slices/api"
@@ -33,7 +33,7 @@ const Header = () => {
       </h2>
       <ul className="flex gap-3">
         <li>
-          <Link to='/compiler'><Button variant='outline'>Compiler</Button></Link>
+          <Link to='/compiler'><Button className= "hidden sm:flex" variant='outline'>Compiler</Button></Link>
         </li>
         {isLoggedIn ? (
           <>
@@ -49,6 +49,12 @@ const Header = () => {
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
+                <Link to="/compiler">
+                  <DropdownMenuItem className="sm:hidden">
+                  <Computer />
+                    <span>Compiler</span>
+                  </DropdownMenuItem>
+                  </Link>
                   <Link to="/my-codes">
                   <DropdownMenuItem>
                     <Code />
