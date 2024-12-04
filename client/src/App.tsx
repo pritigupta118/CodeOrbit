@@ -19,7 +19,7 @@ function App() {
       dispatch(updateCurrentUser({}))
       dispatch(updateIsLoggedIn(false))
     }
-  }, [data, error])
+  }, [data, error,dispatch])
   useEffect(() => {
     window.addEventListener("resize", () => {
       dispatch(updateWindowWidth(window.innerWidth));
