@@ -10,6 +10,9 @@ const codeSchema = new mongoose_1.default.Schema({
         html: String,
         css: String,
         javascript: String
-    }
-});
+    },
+    title: { type: String, required: true },
+    ownerInfo: { type: mongoose_1.default.Schema.Types.ObjectId, ref: "User" },
+    ownerName: String,
+}, { timestamps: true });
 exports.Code = mongoose_1.default.model("Code", codeSchema);
