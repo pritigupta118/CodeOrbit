@@ -4,7 +4,7 @@ import { compilerStateType } from "./compilerSlice"
 export const api = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://code-orbit-api.vercel.app",
+    baseUrl: "http://localhost:4000",
     credentials: "include"
   }),
   tagTypes: ["my-codes"],
