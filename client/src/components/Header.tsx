@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { Button } from "./ui/button"
 import { Code, Computer, Container, LogIn, LogOut } from "lucide-react"
 import { useDispatch, useSelector } from "react-redux"
@@ -13,6 +13,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem,
 const Header = () => {
   const [logoutUser] = useLogoutUserMutation()
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const isLoggedIn = useSelector((store: RootState) => store.appSlice.isLoggedIn)
   const currentUser = useSelector((store: RootState) => store.appSlice.currentUser)
 
@@ -21,6 +22,7 @@ const Header = () => {
       await logoutUser().unwrap()
       dispatch(updateIsLoggedIn(false))
       dispatch(updateCurrentUser({}))
+      navigate("/")
     } catch (error) {
       handleError(error)
     }
