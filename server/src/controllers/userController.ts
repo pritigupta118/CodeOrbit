@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken"
 import { User } from "../models/userModel";
-import { AuthRequest } from "../middlewares/varifyToken";
+import { AuthRequest } from "../middlewares/verifyToken";
 
 
 

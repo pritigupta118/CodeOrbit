@@ -42,7 +42,7 @@ const Login = () => {
       const response = await loginuser(values).unwrap()
       dispatch(updateCurrentUser(response))
       dispatch(updateIsLoggedIn(true))
-      navigate("/")
+      navigate("/compiler")
     } catch (error) {
       handleError(error)
     }

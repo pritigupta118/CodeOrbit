@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { Code } from "../models/codeModel";
 import { fullCodeTypes } from "../types/compilerTypes";
-import { AuthRequest } from "../middlewares/varifyToken";
+import { AuthRequest } from "../middlewares/verifyToken";
 import { User } from "../models/userModel";
 
 
