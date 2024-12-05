@@ -29,10 +29,12 @@ const Header = () => {
   }
   return (
     <nav className="sticky top-0 z-50 w-full border-b border-border/40 dark:bg-black backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:border-border flex justify-between items-center py-4 px-4 md:px-10 h-[60px]">
+      <Link to="/">
       <h2 className="font-bold select-none flex gap-2">
         <Container />
         CodeOrbit
       </h2>
+      </Link>
       <ul className="flex gap-3">
         <li>
           <Link to='/compiler'><Button className= "hidden sm:flex" variant='outline'>Compiler</Button></Link>
