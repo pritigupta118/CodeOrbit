@@ -113,7 +113,7 @@ export const login = async (req: Request, res: Response) : Promise<any> => {
 
 export const logout = async (req: Request, res: Response): Promise<any> => {
   try {
-    res.clearCookie("token");
+    res.clearCookie("token",{ httpOnly: true, secure: true, sameSite: "none" });
     return res.status(200).send({ message: "logged out successfully!" });
   } catch (error) {
     return res.status(500).send({ message: "Error logging out!", error });
